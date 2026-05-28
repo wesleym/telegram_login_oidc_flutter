@@ -39,11 +39,29 @@ telegram-login-android is hosted on GitHub Packages must be accessible to use te
 1. Add your GitHub username and your PAT to the `gradle.properties` in your [Gradle User Home directory](https://docs.gradle.org/current/userguide/directory_layout.html#dir:gradle_user_home). By default, that’s a folder named `.gradle` in your home directory. You may have to create this file.
     
     ```bash
-    gpr.user=wesleym
+    gpr.user=YOUR_GITHUB_USERNAME
     gpr.key=ghp_abcde12345ABCDE67890abcde12345ABCDE67890
     ```
     
     You can also provide these values with the `GITHUB_USERNAME` and `GITHUB_TOKEN` environment variables.
+
+1. Add the GitHub Packages Maven repository to your app’s `android/settings.gradle.kts`:
+
+    ```kotlin
+    dependencyResolutionManagement {
+        repositories {
+            google()
+            mavenCentral()
+            maven {
+                url = uri("https://maven.pkg.github.com/TelegramMessenger/telegram-login-android")
+                credentials {
+                    username = providers.gradleProperty("gpr.user").orNull ?: System.getenv("GITHUB_USERNAME")
+                    password = providers.gradleProperty("gpr.key").orNull ?: System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+    ```
     
 
 ## Bot configuration
