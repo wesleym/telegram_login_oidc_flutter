@@ -20,7 +20,7 @@ let package = Package(
             name: "telegram_login_oidc_flutter",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework"),
-                .product(name: "telegram-login-ios", package: "TelegramLogin"),
+                .product(name: "TelegramLogin", package: "telegram-login-ios"),
             ],
             resources: [
                 .process("PrivacyInfo.xcprivacy"),
