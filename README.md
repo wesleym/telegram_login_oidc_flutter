@@ -126,7 +126,9 @@ Telegram uses a [universal link](https://developer.apple.com/documentation/xcode
 3. In the left pane, click the Runner target (and not the Runner project above it).
 4. Select the "Signing & Capabilities" tab.
 5. If there isn't an "Associated Domains" section, click "+ Capability" and add it.
-6. Add a domain that is `applinks:` followed by the domain name of your App URL from Telegram. For example, you might enter `applinks:appXXXXXXXXXX-login.tg.dev`.
+6. Add the following two domains to let Telegram redirect back to your app after authentication. Substitute the domain name of your App URL for your iOS app from Telegram:
+   * `webcredentials:appXXXXXXXXXX-login.tg.dev`: used when Telegram is not installed on the device.
+   * `applinks:appXXXXXXXXXX-login.tg.dev`: used for the universal link callback when Telegram is installed.
 
 More detail about adding an associated domain to your app: <https://developer.apple.com/documentation/xcode/supporting-associated-domains#Add-the-associated-domains-entitlement-to-your-app>.
 

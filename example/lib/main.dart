@@ -7,8 +7,9 @@ import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
 // the App URL for each platform.
 //
 // See README.md for additional setup steps. These include:
-// * iOS: Add an associated domain based on your iOS App URL in Xcode,
-//   e.g. `applinks:appXXXXXXXXXX-login.tg.dev`.
+// * iOS: Add the two kinds of associated domain for your iOS App URL in Xcode:
+// `webcredentials:appXXXXXXXXXX-login.tg.dev` (for when Telegram is not
+// installed) and `applinks:appXXXXXXXXXX-login.tg.dev` (for when it is).
 // * Android: Set manifestPlaceholders["telegramAndroidAppUrl"] to the domain
 //   of your Android App URL in android/app/build.gradle.kts,
 //   e.g. `appYYYYYYYYYY-login.tg.dev`.
