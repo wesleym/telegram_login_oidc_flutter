@@ -1,17 +1,10 @@
-# telegram_login_flutter_example
+# telegram_login_oidc_flutter example
 
-Demonstrates how to use the telegram_login_flutter plugin.
+Demonstrates Telegram OpenID Connect login using the `telegram_login_oidc_flutter` plugin.
 
-## Getting Started
+## Setup
 
-This project is a starting point for a Flutter application.
+Before running this example:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Follow the [bot configuration](../README.md#bot-configuration) and [app configuration](../README.md#app-configuration) steps in the plugin README.
+2. Replace the placeholder credentials in `lib/main.dart` with your own bot's client ID and App URLs.
