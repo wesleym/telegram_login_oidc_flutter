@@ -59,21 +59,7 @@ android {
         manifestPlaceholders["telegramAndroidScheme"] = "\${applicationId}"
     }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            all {
-                it.useJUnitPlatform()
 
-                it.outputs.upToDateWhen { false }
-
-                it.testLogging {
-                    events("passed", "skipped", "failed", "standardOut", "standardError")
-                    showStandardStreams = true
-                }
-            }
-        }
-    }
 }
 
 kotlin {
@@ -84,6 +70,4 @@ kotlin {
 
 dependencies {
     implementation("org.telegram:login-sdk:1.0.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.mockito:mockito-core:5.0.0")
 }
