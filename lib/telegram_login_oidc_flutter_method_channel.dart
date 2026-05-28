@@ -19,7 +19,7 @@ class MethodChannelTelegramLoginFlutter extends TelegramLoginFlutterPlatform {
       'redirectUri': redirectUri!,
       'scopes': scopes,
     };
-    if (iosFallbackScheme != null) args['fallbackScheme'] = iosFallbackScheme;
+    if (iosFallbackScheme != null) args['iosFallbackScheme'] = iosFallbackScheme;
     await _channel.invokeMethod<void>('configure', args);
   }
 
