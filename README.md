@@ -131,21 +131,20 @@ Information about URL Types: <https://developer.apple.com/library/archive/docume
 import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
 
 TelegramLogin.configure(
-  // REPLACE ME: The client ID for your bot, as shown in "Login Widget" in BotFather.
-  clientId: '8944110757',
+  // The client ID for your bot, as shown in "Login Widget" in BotFather.
+  clientId: 'YOUR_CLIENT_ID',
 
-  // REPLACE ME: App URLs provisioned by BotFather for each native platform.
+  // App URLs provisioned by BotFather for each native platform.
   // Web apps don't have App URLs.
-  iosAppUrl:     'https://app1279099312-login.tg.dev',
-  androidAppUrl: 'https://app43211768-login.tg.dev',
+  iosAppUrl:     'https://appXXXXXXXXXX-login.tg.dev',
+  androidAppUrl: 'https://appXXXXXXXXXX-login.tg.dev',
 
   // Available scopes: https://core.telegram.org/bots/telegram-login#available-scopes
   // "openid" must be one of the scopes you request.
   scopes: const ['openid'],
 
-  // (optional) REPLACE ME: replace this with your iOS bundle ID as a backup way
-  // to automatically launch your app if the universal link doesn't work.
-  // iosFallbackScheme: 'com.wesleymoy.telegramLoginFlutterExample',
+  // (optional) Your iOS bundle ID, as a backup if the universal link doesn't work.
+  // iosFallbackScheme: 'com.example.yourapp',
 
   // Web-only options (ignored on iOS and Android):
   // webNonce: 'random-nonce-value',  // prevents replay attacks

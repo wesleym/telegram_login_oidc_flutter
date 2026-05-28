@@ -7,14 +7,16 @@ import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
 // the App URL for each platform.
 //
 // See README.md for additional setup steps. These include:
-// * iOS: Add an associated domain based on your iOS App URL in Xcode:
-// `applinks:https://app1279099312-login.tg.dev`.
+// * iOS: Add an associated domain based on your iOS App URL in Xcode,
+// e.g. `applinks:appXXXXXXXXXX-login.tg.dev`.
 // * Optionally add custom schemes as backup for universal links/Android App
 // Links.
 // ---------------------------------------------------------------------------
-const _clientId = '8944110757';
-const _iosAppUrl = 'https://app1279099312-login.tg.dev';
-const _androidAppUrl = 'https://app43211768-login.tg.dev';
+// TODO: Replace with your bot's client ID, found in BotFather under "Login Widget".
+const _clientId = 'YOUR_CLIENT_ID';
+// TODO: Replace with the App URLs provisioned by BotFather for each platform.
+const _iosAppUrl = 'https://appXXXXXXXXXX-login.tg.dev';
+const _androidAppUrl = 'https://appXXXXXXXXXX-login.tg.dev';
 
 void main() {
   runApp(const MyApp());
@@ -53,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
       iosAppUrl: _iosAppUrl,
       androidAppUrl: _androidAppUrl,
       scopes: const ['openid'],
-      iosFallbackScheme: 'com.wesleymoy.telegramLoginFlutterExample',
+      // TODO: Replace with your app's bundle ID if using the custom-scheme fallback.
+      // iosFallbackScheme: 'com.example.yourapp',
     );
   }
 
