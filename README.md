@@ -103,9 +103,9 @@ You can get your signing certificate’s SHA-256 fingerprint. From your project�
 ./gradlew signingReport
 ```
 
-In the Login Widget section of the BotFather mini app, select "Add Native App" -> "Android". Enter the application ID and bundle ID. Once you’ve entered this information, an App URL will appear for your Android app. You’ll need this later.
+In the Login Widget section of the BotFather mini app, select "Add Native App" -> "Android". Enter the application ID and signing certificate fingerprint. Once you’ve entered this information, an App URL will appear for your Android app. You’ll need this later.
 
-Optional: Select "Add a Redirect URI". Enter your application ID followed by `://`. For example, you might enter `com.wesleymoy.telegram_login_oidc_flutter_example://`. This allows Telegram to launch your app with a custom scheme if launching with an Android App Links deep link fails. See App Configuration.
+Optional: Select "Add a Redirect URI". Enter your application ID followed by `://`. For example, you might enter `com.wesleymoy.telegram_login_oidc_flutter_example://`. This allows Telegram to launch your app with a custom scheme if launching with an App Link fails. See App Configuration.
 
 ### Bot configuration: web
 
@@ -137,7 +137,7 @@ There are also two changes to make in your project's info. First, allow telegram
 
 How to edit your app’s Info in Xcode: <https://developer.apple.com/documentation/bundleresources/managing-your-app-s-information-property-list#Configure-information-property-list-values>. Information about Queried URL Schemes: <https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/plist/info/LSApplicationQueriesSchemes>.
 
-Optional: In the "URL Types" section (`CFBundleURLTypes`), click the "+" button. Enter your bundle ID in both the Identifier and URL Schemes fields. This allows Telegram to launch your app with a custom scheme if launching with an Android App Links deep link fails.
+Optional: In the "URL Types" section (`CFBundleURLTypes`), click the "+" button. Enter your bundle ID in both the Identifier and URL Schemes fields. This allows Telegram to launch your app with a custom scheme if launching with a universal link fails.
 
 Information about URL Types: <https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102207>.
 
