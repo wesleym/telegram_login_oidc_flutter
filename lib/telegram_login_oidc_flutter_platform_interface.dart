@@ -22,15 +22,15 @@ class TelegramLoginException implements Exception {
   String toString() => 'TelegramLoginException($code): $message';
 }
 
-abstract class TelegramLoginFlutterPlatform extends PlatformInterface {
-  TelegramLoginFlutterPlatform() : super(token: _token);
+abstract class TelegramLoginOidcFlutterPlatform extends PlatformInterface {
+  TelegramLoginOidcFlutterPlatform() : super(token: _token);
 
   static final Object _token = Object();
-  static TelegramLoginFlutterPlatform _instance =
-      MethodChannelTelegramLoginFlutter();
+  static TelegramLoginOidcFlutterPlatform _instance =
+      MethodChannelTelegramLoginOidcFlutter();
 
-  static TelegramLoginFlutterPlatform get instance => _instance;
-  static set instance(TelegramLoginFlutterPlatform instance) {
+  static TelegramLoginOidcFlutterPlatform get instance => _instance;
+  static set instance(TelegramLoginOidcFlutterPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }

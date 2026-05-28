@@ -16,7 +16,7 @@ class TelegramLoginCallbackActivity : Activity() {
     }
 
     private fun handleIntent(intent: Intent) {
-        intent.data?.let { TelegramLoginFlutterPlugin.onCallback(it) }
+        intent.data?.let { TelegramLoginOidcFlutterPlugin.onCallback(it) }
         finish()
     }
 }

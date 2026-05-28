@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Telegram Login Flutter</string>
+	<string>Telegram Login OIDC Flutter</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,10 +28,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.wesleymoy.telegramLoginFlutterExample</string>
+			<string>com.wesleymoy.telegramLoginOidcFlutterExample</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.wesleymoy.telegramLoginFlutterExample</string>
+				<string>com.wesleymoy.telegramLoginOidcFlutterExample</string>
 			</array>
 		</dict>
 	</array>

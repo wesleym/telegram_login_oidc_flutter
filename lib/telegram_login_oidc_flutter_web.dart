@@ -8,9 +8,9 @@ import 'telegram_login_oidc_flutter_platform_interface.dart';
 @JS('Telegram.Login.auth')
 external void _telegramLoginAuth(JSObject options, JSFunction callback);
 
-class TelegramLoginFlutterWeb extends TelegramLoginFlutterPlatform {
+class TelegramLoginOidcFlutterWeb extends TelegramLoginOidcFlutterPlatform {
   static void registerWith(Object registrar) {
-    TelegramLoginFlutterPlatform.instance = TelegramLoginFlutterWeb();
+    TelegramLoginOidcFlutterPlatform.instance = TelegramLoginOidcFlutterWeb();
   }
 
   String? _clientId;

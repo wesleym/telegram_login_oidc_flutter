@@ -13,7 +13,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import org.telegram.login.TelegramLogin
 
-class TelegramLoginFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
+class TelegramLoginOidcFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var channel: MethodChannel
     private var activity: Activity? = null
     private var lifecycleCallbacks: Application.ActivityLifecycleCallbacks? = null

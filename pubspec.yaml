@@ -33,9 +33,9 @@ flutter:
     platforms:
       android:
         package: com.wesleymoy.telegram_login_oidc_flutter
-        pluginClass: TelegramLoginFlutterPlugin
+        pluginClass: TelegramLoginOidcFlutterPlugin
       ios:
-        pluginClass: TelegramLoginFlutterPlugin
+        pluginClass: TelegramLoginOidcFlutterPlugin
       web:
-        pluginClass: TelegramLoginFlutterWeb
+        pluginClass: TelegramLoginOidcFlutterWeb
         fileName: telegram_login_oidc_flutter_web.dart

@@ -46,7 +46,7 @@ class TelegramLogin {
     String? webLang,
   }) {
     if (kIsWeb) {
-      return TelegramLoginFlutterPlatform.instance.configure(
+      return TelegramLoginOidcFlutterPlatform.instance.configure(
         clientId: clientId,
         scopes: scopes,
         webNonce: webNonce,
@@ -69,7 +69,7 @@ class TelegramLogin {
       'Provide iosAppUrl on iOS or androidAppUrl on Android.',
     );
 
-    return TelegramLoginFlutterPlatform.instance.configure(
+    return TelegramLoginOidcFlutterPlatform.instance.configure(
       clientId: clientId,
       redirectUri: effectiveRedirectUri!,
       scopes: scopes,
@@ -82,6 +82,6 @@ class TelegramLogin {
   /// Returns [LoginData] containing the OpenID Connect `id_token` on success.
   /// Throws [TelegramLoginException] on failure or cancellation.
   static Future<LoginData> login() {
-    return TelegramLoginFlutterPlatform.instance.login();
+    return TelegramLoginOidcFlutterPlatform.instance.login();
   }
 }

@@ -2,7 +2,7 @@ import Flutter
 import TelegramLogin
 import UIKit
 
-public class TelegramLoginFlutterPlugin: NSObject, FlutterPlugin, FlutterApplicationLifeCycleDelegate, FlutterSceneLifeCycleDelegate {
+public class TelegramLoginOidcFlutterPlugin: NSObject, FlutterPlugin, FlutterApplicationLifeCycleDelegate, FlutterSceneLifeCycleDelegate {
     // Tracks whether a login is in-flight so we can route cross-app redirect URLs.
     private static var hasPendingLogin = false
 
@@ -11,7 +11,7 @@ public class TelegramLoginFlutterPlugin: NSObject, FlutterPlugin, FlutterApplica
             name: "telegram_login_oidc_flutter",
             binaryMessenger: registrar.messenger()
         )
-        let instance = TelegramLoginFlutterPlugin()
+        let instance = TelegramLoginOidcFlutterPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
         registrar.addApplicationDelegate(instance)
         registrar.addSceneDelegate(instance)
@@ -45,10 +45,10 @@ public class TelegramLoginFlutterPlugin: NSObject, FlutterPlugin, FlutterApplica
             }
 
         case "login":
-            TelegramLoginFlutterPlugin.hasPendingLogin = true
+            TelegramLoginOidcFlutterPlugin.hasPendingLogin = true
             Task { @MainActor in
                 TelegramLogin.login { loginResult in
-                    TelegramLoginFlutterPlugin.hasPendingLogin = false
+                    TelegramLoginOidcFlutterPlugin.hasPendingLogin = false
                     switch loginResult {
                     case .success(let data):
                         result(["idToken": data.idToken])
@@ -97,7 +97,7 @@ public class TelegramLoginFlutterPlugin: NSObject, FlutterPlugin, FlutterApplica
     // MARK: - Private
 
     private func handleURL(_ url: URL) -> Bool {
-        guard TelegramLoginFlutterPlugin.hasPendingLogin else { return false }
+        guard TelegramLoginOidcFlutterPlugin.hasPendingLogin else { return false }
         Task { @MainActor in
             TelegramLogin.handle(url)
         }
@@ -106,7 +106,7 @@ public class TelegramLoginFlutterPlugin: NSObject, FlutterPlugin, FlutterApplica
 
     private func handleUserActivity(_ userActivity: NSUserActivity) -> Bool {
         guard
-            TelegramLoginFlutterPlugin.hasPendingLogin,
+            TelegramLoginOidcFlutterPlugin.hasPendingLogin,
             userActivity.activityType == NSUserActivityTypeBrowsingWeb,
             let url = userActivity.webpageURL
         else { return false }
