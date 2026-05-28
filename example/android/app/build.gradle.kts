@@ -23,7 +23,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        manifestPlaceholders["telegramAndroidAppUrl"] = "app43211768-login.tg.dev"
+        // TODO: Replace with the domain of your Android App URL from BotFather.
+        manifestPlaceholders["telegramAndroidAppUrl"] = "appYYYYYYYYYY-login.tg.dev"
     }
 
     buildTypes {
