@@ -8,15 +8,18 @@ import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
 //
 // See README.md for additional setup steps. These include:
 // * iOS: Add an associated domain based on your iOS App URL in Xcode,
-// e.g. `applinks:appXXXXXXXXXX-login.tg.dev`.
+//   e.g. `applinks:appXXXXXXXXXX-login.tg.dev`.
+// * Android: Set manifestPlaceholders["telegramAndroidAppUrl"] to the domain
+//   of your Android App URL in android/app/build.gradle.kts,
+//   e.g. `appYYYYYYYYYY-login.tg.dev`.
 // * Optionally add custom schemes as backup for universal links/Android App
-// Links.
+//   Links.
 // ---------------------------------------------------------------------------
 // TODO: Replace with your bot's client ID, found in BotFather under "Login Widget".
 const _clientId = 'YOUR_CLIENT_ID';
 // TODO: Replace with the App URLs provisioned by BotFather for each platform.
 const _iosAppUrl = 'https://appXXXXXXXXXX-login.tg.dev';
-const _androidAppUrl = 'https://appXXXXXXXXXX-login.tg.dev';
+const _androidAppUrl = 'https://appYYYYYYYYYY-login.tg.dev';
 
 void main() {
   runApp(const MyApp());

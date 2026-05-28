@@ -141,6 +141,22 @@ Optional: In the "URL Types" section (`CFBundleURLTypes`), click the "+" button.
 
 Information about URL Types: <https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102207>.
 
+### App configuration: Android
+
+Telegram uses an [App Link](https://developer.android.com/training/app-links) to open your app after Telegram login completes. To make your app open automatically when this happens, you need to set the `telegramAndroidAppUrl` to your App URL from Telegram.
+
+In your app's `android/app/build.gradle.kts`, add the domain to `manifestPlaceholders`:
+
+```kotlin
+android {
+    defaultConfig {
+        manifestPlaceholders["telegramAndroidAppUrl"] = "appYYYYYYYYYY-login.tg.dev"
+    }
+}
+```
+
+Replace `appYYYYYYYYYY-login.tg.dev` with the domain of your App URL for your Android native app in BotFather.
+
 ### Usage
 
 #### Configure once (e.g. in `initState`)
