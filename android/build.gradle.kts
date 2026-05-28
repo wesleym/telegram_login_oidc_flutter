@@ -1,4 +1,4 @@
-group = "com.wesleymoy.telegram_login_flutter"
+group = "com.wesleymoy.telegram_login_oidc_flutter"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -34,7 +34,7 @@ plugins {
 }
 
 android {
-    namespace = "com.wesleymoy.telegram_login_flutter"
+    namespace = "com.wesleymoy.telegram_login_oidc_flutter"
 
     compileSdk = 36
 

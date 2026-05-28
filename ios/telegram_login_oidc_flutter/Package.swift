@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "telegram_login_flutter",
+    name: "telegram_login_oidc_flutter",
     platforms: [
         .iOS("15.0")
     ],
     products: [
-        .library(name: "telegram-login-flutter", targets: ["telegram_login_flutter"])
+        .library(name: "telegram-login-oidc-flutter", targets: ["telegram_login_oidc_flutter"])
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
@@ -17,7 +17,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "telegram_login_flutter",
+            name: "telegram_login_oidc_flutter",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework"),
                 .product(name: "telegram-login-ios", package: "TelegramLogin"),

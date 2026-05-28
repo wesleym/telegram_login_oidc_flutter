@@ -1,20 +1,20 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint telegram_login_flutter.podspec` to validate before publishing.
+# Run `pod lib lint telegram_login_oidc_flutter.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'telegram_login_flutter'
+  s.name             = 'telegram_login_oidc_flutter'
   s.version          = '0.0.1'
-  s.summary          = 'Flutter plugin wrapping the official Telegram Login SDK for iOS and Android.'
+  s.summary          = 'Flutter plugin for Telegram OpenID Connect login.'
   s.description      = <<-DESC
 Flutter plugin that wraps the official TelegramMessenger/telegram-login-ios SDK,
-providing a Dart API for Telegram OAuth (OpenID Connect) login.
+providing a Dart API for Telegram OpenID Connect login.
                        DESC
-  s.homepage         = 'https://github.com/wesleymoy/telegram_login_flutter'
+  s.homepage         = 'https://github.com/wesleym/telegram_login_oidc_flutter'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Wesley Moy' => 'wesley.moy@gmail.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'telegram_login_flutter/Sources/telegram_login_flutter/**/*'
+  s.source_files = 'telegram_login_oidc_flutter/Sources/telegram_login_oidc_flutter/**/*'
   s.dependency 'Flutter'
   s.platform = :ios, '15.0'
 
@@ -26,5 +26,5 @@ providing a Dart API for Telegram OAuth (OpenID Connect) login.
   # required reason APIs, update the PrivacyInfo.xcprivacy file to describe your
   # plugin's privacy impact, and then uncomment this line. For more information,
   # see https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
-  # s.resource_bundles = {'telegram_login_flutter_privacy' => ['telegram_login_flutter/Sources/telegram_login_flutter/PrivacyInfo.xcprivacy']}
+  # s.resource_bundles = {'telegram_login_oidc_flutter_privacy' => ['telegram_login_oidc_flutter/Sources/telegram_login_oidc_flutter/PrivacyInfo.xcprivacy']}
 end

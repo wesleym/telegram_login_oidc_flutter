@@ -8,7 +8,7 @@ public class TelegramLoginFlutterPlugin: NSObject, FlutterPlugin, FlutterApplica
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(
-            name: "telegram_login_flutter",
+            name: "telegram_login_oidc_flutter",
             binaryMessenger: registrar.messenger()
         )
         let instance = TelegramLoginFlutterPlugin()

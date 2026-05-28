@@ -1,4 +1,4 @@
-package com.wesleymoy.telegram_login_flutter
+package com.wesleymoy.telegram_login_oidc_flutter
 
 import android.app.Activity
 import android.app.Application
@@ -19,7 +19,7 @@ class TelegramLoginFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
     private var lifecycleCallbacks: Application.ActivityLifecycleCallbacks? = null
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(binding.binaryMessenger, "telegram_login_flutter")
+        channel = MethodChannel(binding.binaryMessenger, "telegram_login_oidc_flutter")
         channel.setMethodCallHandler(this)
     }
 

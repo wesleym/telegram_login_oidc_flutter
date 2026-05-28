@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:telegram_login_flutter/telegram_login_flutter_method_channel.dart';
+import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   MethodChannelTelegramLoginFlutter platform = MethodChannelTelegramLoginFlutter();
-  const MethodChannel channel = MethodChannel('telegram_login_flutter');
+  const MethodChannel channel = MethodChannel('telegram_login_oidc_flutter');
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger

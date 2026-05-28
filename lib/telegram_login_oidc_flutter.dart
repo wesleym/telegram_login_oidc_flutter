@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'telegram_login_flutter_platform_interface.dart';
+import 'telegram_login_oidc_flutter_platform_interface.dart';
 
-export 'telegram_login_flutter_platform_interface.dart'
+export 'telegram_login_oidc_flutter_platform_interface.dart'
     show LoginData, TelegramLoginException;
 
 class TelegramLogin {

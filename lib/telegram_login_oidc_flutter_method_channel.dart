@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 
-import 'telegram_login_flutter_platform_interface.dart';
+import 'telegram_login_oidc_flutter_platform_interface.dart';
 
 class MethodChannelTelegramLoginFlutter extends TelegramLoginFlutterPlatform {
-  final _channel = const MethodChannel('telegram_login_flutter');
+  final _channel = const MethodChannel('telegram_login_oidc_flutter');
 
   @override
   Future<void> configure({

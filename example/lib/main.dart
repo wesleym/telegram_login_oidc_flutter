@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:telegram_login_flutter/telegram_login_flutter.dart';
+import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
 
 // ---------------------------------------------------------------------------
 // All platforms share the same bot and therefore share a client ID for Telegram

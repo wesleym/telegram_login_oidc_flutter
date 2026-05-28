@@ -1,6 +1,6 @@
 {
-    "name": "telegram_login_flutter_example",
-    "short_name": "telegram_login_flutter_example",
+    "name": "telegram_login_oidc_flutter_example",
+    "short_name": "telegram_login_oidc_flutter_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

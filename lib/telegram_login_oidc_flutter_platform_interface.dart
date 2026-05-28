@@ -1,6 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'telegram_login_flutter_method_channel.dart';
+import 'telegram_login_oidc_flutter_method_channel.dart';
 
 class LoginData {
   final String idToken;

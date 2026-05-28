@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:telegram_login_flutter/telegram_login_flutter.dart';
-import 'package:telegram_login_flutter/telegram_login_flutter_platform_interface.dart';
-import 'package:telegram_login_flutter/telegram_login_flutter_method_channel.dart';
+import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
+import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter_platform_interface.dart';
+import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockTelegramLoginFlutterPlatform

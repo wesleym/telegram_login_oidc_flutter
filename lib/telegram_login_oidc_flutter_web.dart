@@ -3,7 +3,7 @@ import 'dart:js_interop';
 
 import 'package:web/web.dart' as web;
 
-import 'telegram_login_flutter_platform_interface.dart';
+import 'telegram_login_oidc_flutter_platform_interface.dart';
 
 @JS('Telegram.Login.auth')
 external void _telegramLoginAuth(JSObject options, JSFunction callback);

@@ -1,4 +1,4 @@
-package com.wesleymoy.telegram_login_flutter
+package com.wesleymoy.telegram_login_oidc_flutter
 
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
