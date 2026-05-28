@@ -45,10 +45,10 @@ telegram-login-android is hosted on GitHub Packages must be accessible to use te
     
     You can also provide these values with the `GITHUB_USERNAME` and `GITHUB_TOKEN` environment variables.
 
-1. Add the GitHub Packages Maven repository to your app’s `android/settings.gradle.kts`:
+1. Add the GitHub Packages Maven repository to your app’s `android/build.gradle.kts`:
 
     ```kotlin
-    dependencyResolutionManagement {
+    allprojects {
         repositories {
             google()
             mavenCentral()
