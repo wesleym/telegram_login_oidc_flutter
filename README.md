@@ -22,12 +22,6 @@ To build for Android, your [`minSdkVersion`](https://developer.android.com/ndk/g
 flutter pub add telegram_login_oidc_flutter
 ```
 
-### Installation: iOS
-
-telegram_login_oidc_flutter is only designed to work with Swift Package Manager. Upgrade your project to use Swift Package Manager if you haven’t already.
-
-https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers
-
 ### Installation: Android
 
 telegram-login-android is hosted on GitHub Packages must be accessible to use telegram_login_oidc_flutter. As a result, you must have a GitHub account to provision credentials to access it.
