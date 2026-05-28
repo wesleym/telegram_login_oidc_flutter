@@ -89,7 +89,7 @@ Your bundle ID is in the "Identity" section, labelled as the "Bundle Identifier"
 
 In the Login Widget section of the BotFather mini app, select "Add Native App" -> "iOS". Enter the team ID and bundle ID. Once you’ve entered this information, an App URL will appear for your iOS app. You’ll need this later.
 
-Optional: Select "Add a Redirect URI". Enter your bundle ID followed by `://`. For example, you might enter `com.wesleymoy.telegramLoginFlutterExample://`. This allows Telegram to launch your app with a custom scheme if launching with a universal link fails. See App Configuration.
+Optional: Select "Add a Redirect URI". Enter your bundle ID followed by `://`. For example, you might enter `com.wesleymoy.telegramLoginOidcFlutterExample://`. This allows Telegram to launch your app with a custom scheme if launching with a universal link fails. See App Configuration.
 
 ### Bot configuration: Android
 
