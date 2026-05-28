@@ -17,13 +17,13 @@
             </intent-filter>
             <!-- Fallback: custom URL scheme. Defaults to the app's package name;
                  override by setting telegramAndroidScheme in manifestPlaceholders.
-                 Register {scheme}://telegram-auth in BotFather to use this path. -->
+                 Matches any URI with that scheme, so the redirect URI registered
+                 in BotFather can be any value starting with {scheme}:// -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="${telegramAndroidScheme}"
-                      android:host="telegram-auth"/>
+                <data android:scheme="${telegramAndroidScheme}"/>
             </intent-filter>
         </activity>
     </application>
