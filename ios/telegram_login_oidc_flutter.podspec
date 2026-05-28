@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'telegram_login_oidc_flutter'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'Flutter plugin for Telegram OpenID Connect login.'
   s.description      = <<-DESC
 Flutter plugin that wraps the official TelegramMessenger/telegram-login-ios SDK,

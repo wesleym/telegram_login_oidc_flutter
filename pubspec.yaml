@@ -1,6 +1,6 @@
 name: telegram_login_oidc_flutter
 description: "A Flutter plugin that lets users log in to your app with Telegram. This library builds on the Telegram OpenID Connect login method introduced in 2026."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/wesleym/telegram_login_oidc_flutter
 repository: https://github.com/wesleym/telegram_login_oidc_flutter
 
