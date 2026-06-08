@@ -26,16 +26,14 @@ class TelegramLoginOidcFlutterPlugin : FlutterPlugin, MethodCallHandler, Activit
     private var lifecycleCallbacks: Application.ActivityLifecycleCallbacks? = null
     private var redirectUri: Uri? = null
 
-    // A redirect that arrived as the host Activity's *launch* intent (Android
-    // recreated the Activity from scratch while the user was away — see
-    // handleLaunchIntent) before configure() told us the redirect URI to match
-    // against. Resolved once configure() runs; see resolvePendingLaunchIntent.
+    // A redirect that arrived as the host Activity's launch intent due to
+    // process death (see handleLaunchIntent) before configure() told us the
+    // redirect URI to match against. Resolved once configure() runs (see
+    // resolvePendingLaunchIntent).
     private var pendingLaunchIntentUri: Uri? = null
 
-    // Recognizes the redirect arriving via the host Activity's onNewIntent — the
-    // app must declare an intent-filter matching the configured redirect URI on
-    // that Activity (see App configuration: Android in the README) so Android
-    // delivers it there directly, without any separate trampoline Activity/task.
+    // Recognizes the redirect arriving via the host Activity's onNewIntent. The
+    // library consumer must set up the appropriate intent filter.
     private val newIntentListener = NewIntentListener { intent ->
         val data = intent.data
         val matched = data != null && matchesRedirect(data)
@@ -174,12 +172,11 @@ class TelegramLoginOidcFlutterPlugin : FlutterPlugin, MethodCallHandler, Activit
         if (loginLaunched) registerCancellationWatcher(binding.activity)
     }
 
-    // If Android killed and recreated the host Activity while the user was away
-    // completing the login (e.g. low memory), the redirect arrives as this
-    // Activity's *launch* intent via onCreate rather than onNewIntent — our
-    // NewIntentListener never sees it. Check for it here. On a freshly recreated
-    // engine, configure() may not have run yet (redirectUri == null) — in that
-    // case stash the data and let resolvePendingLaunchIntent decide once it has.
+    // If process death occurred, the redirect arrives as this Activity's launch
+    // intent via onCreate rather than onNewIntent. NewIntentListener wouldn't
+    // see it, so check for it here. On a freshly recreated engine, configure()
+    // may not have run yet and redirectUri may be null, so stash the data and
+    // let resolvePendingLaunchIntent decide once it has.
     private fun handleLaunchIntent(act: Activity) {
         val data = act.intent?.data ?: return
         if (redirectUri == null) {

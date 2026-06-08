@@ -139,37 +139,30 @@ Information about URL Types: <https://developer.apple.com/library/archive/docume
 
 ### App configuration: Android
 
-Telegram uses an [App Link](https://developer.android.com/training/app-links) to open your app after Telegram login completes. To make your app open automatically when this happens, add an intent filter matching your App URL to your launcher activity (usually `MainActivity`) in `android/app/src/main/AndroidManifest.xml`:
+Telegram uses an [App Link](https://developer.android.com/training/app-links) to open your app after Telegram login completes. To make your app open automatically when this happens, add an intent filter matching your App URL inside your main `<activity>` in `android/app/src/main/AndroidManifest.xml`:
 
 ```xml
-<activity
-    android:name=".MainActivity"
-    ...>
-    ...
-    <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="https"
-              android:host="appYYYYYYYYYY-login.tg.dev"
-              android:pathPrefix="/tglogin"/>
-    </intent-filter>
-</activity>
+<intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW"/>
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.BROWSABLE"/>
+    <data android:scheme="https"
+          android:host="appYYYYYYYYYY-login.tg.dev"
+          android:pathPrefix="/tglogin"/>
+</intent-filter>
 ```
 
 Replace `appYYYYYYYYYY-login.tg.dev` with the domain of your App URL for your Android native app in BotFather — the same value you pass as `androidAppUrl` to `TelegramLogin.configure` (see Usage below).
 
-ℹ️ This intent filter must live on the same activity that hosts your Flutter engine (the one declared with `<action android:name="android.intent.action.MAIN"/>` and `<category android:name="android.intent.category.LAUNCHER"/>`), and that activity's `launchMode` must be `standard`, `singleTop`, or `singleTask` so Android delivers the redirect to the existing instance via `onNewIntent` rather than creating a new one. The default Flutter project template satisfies both of these out of the box.
-
-Optional: if you also registered a custom-scheme redirect URI as a fallback (see Bot configuration: Android above), add a second intent filter for it:
+Optional: if you also registered a custom-scheme redirect URI as a fallback (see Bot configuration: Android above), add a second intent filter for it inside your `<activity>`:
 
 ```xml
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.example.yourapp"/>
-    </intent-filter>
+<intent-filter>
+    <action android:name="android.intent.action.VIEW"/>
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.BROWSABLE"/>
+    <data android:scheme="com.example.yourapp"/>
+</intent-filter>
 ```
 
 Replace `com.example.yourapp` with your application ID followed by `://`, matching what you registered in BotFather.
@@ -216,80 +209,24 @@ try {
 }
 ```
 
-#### Recovering an interrupted sign-in (Android)
+#### Ignoring the redirect
 
-On Android, the OS can destroy and recreate your app's Flutter engine while
-the user is away completing the flow in Telegram or the browser — e.g. due to
-memory pressure, or aggressive OEM background-app limits (observed on some
-Motorola devices). When that happens, the native side still finishes the
-sign-in and obtains the `id_token`, but the `Future` returned by the original
-`login()` call is orphaned in the now-defunct isolate and never resolves —
-leaving the user stuck wherever your UI was when they left.
-
-Call `TelegramLogin.consumePendingLogin()` once at startup (after
-`configure()`) to recover such a result:
-
-```dart
-final pending = await TelegramLogin.consumePendingLogin();
-if (pending != null) {
-  print(pending.idToken); // pick up where the interrupted login left off
-}
-```
-
-Returns `null` if there's nothing to recover, or if the recovered result is
-too old to be trusted. This is a no-op that always returns `null` on iOS and
-web, where this scenario cannot occur.
-
-**Should you `await` it before showing your UI?** You can, but think twice
-before letting it block your splash screen / first frame. Most of the time
-`consumePendingLogin()` resolves almost immediately (it's just a local
-SharedPreferences read), but if your app happens to launch *while* an orphaned
-redirect is still being exchanged with your backend, it waits for that
-exchange to finish first — which depends on network latency and is entirely
-outside your control. Gating `runApp` (or a splash screen) on this call means
-your app's startup time inherits that uncertainty.
-
-The safer pattern — the one this package's example app and the README's other
-examples use — is to call `consumePendingLogin()` concurrently with building
-your UI (e.g. from `initState`, same as you'd verify a stored session token)
-and let the model/router treat "auth state not yet known" as a real, distinct
-state rather than equating "no token *yet*" with "logged out". This isn't just
-a startup-latency nicety: any authenticated request your UI fires *before*
-this resolves (e.g. an optimistically-rendered home screen loading its feed)
-is guaranteed to fail, and surfacing that failure to the user as something
-like "Session expired" — only to have it silently replaced a moment later once
-recovery completes — makes for a confusing flash that's easy to introduce and
-easy to miss in testing.
-
-#### Keeping your router from choking on the redirect URL
-
-If you use an App Link / Universal Link (`https://`) as your redirect URI —
-the recommended setup — **your app's router will also receive that redirect
-URL as if it were a deep link**, in addition to the plugin handling it
-natively. This is just how the platforms work: they hand a matching URL to
-your app generically, and the plugin and your router both see it. A URL like
+If you use an App Link / Universal Link (`https://`) as your redirect URI, your app's router will also receive that redirect
+URL as if it were a deep link. A URL like
 `https://app{ID}-login.tg.dev/tglogin?code=...` is never a real navigation
 target, so if your router doesn't expect it, it can crash — e.g. `go_router`
 raises `GoException: no routes for location: ...`.
 
-This often won't surface immediately: most apps redirect unauthenticated
-users away from arbitrary URLs by default, which incidentally absorbs this
-one too. It tends to appear specifically once a user is *already* signed in
-when the URL arrives — the most common path there being a successful
-[`consumePendingLogin`](#recovering-an-interrupted-sign-in-android) recovery.
-
-Use [`TelegramLogin.isLoginRedirect`](#) to recognize and route past it.
-For `go_router`:
+Use [`TelegramLogin.isLoginRedirect`](#) to recognize and route to a reasonable app launch route.
+If you use `go_router`, you can set up a redirect:
 
 ```dart
 GoRouter(
   redirect: (context, state) {
     if (TelegramLogin.isLoginRedirect(state.matchedLocation)) {
-      return '/'; // or wherever your app should land
+      return '/'; // or an appropriate route for launch
     }
-    // ...your other redirect logic...
   },
-  // ...
 );
 ```
 
@@ -312,3 +249,22 @@ GoRouter(
 ### Platform considerations: web
 
 **Important:** The `telegram-login.js` library relies on communicating with a popup window to complete the authentication flow. If your website serves the `Cross-Origin-Opener-Policy: same-origin` HTTP header, this cross-window communication will be blocked and the login process will fail. To ensure the JavaScript library functions correctly, you must either remove this header or use a more permissive policy, such as `Cross-Origin-Opener-Policy: same-origin-allow-popups`.
+
+### Platform considerations: android
+
+#### Recovering an interrupted sign-in (Android)
+
+On Android, your app process can die and your app's Flutter engine can go away while the user is completing the flow in Telegram or the browser. When that happens, the authentication still finishes and the `id_token` is sent to your app, but the `Future` returned by the original `login()` call is orphaned in the now-defunct isolate and never resolves.
+
+If this happens, you'll notice that you end up back your app, but login appears never to have been initiated.
+
+Call `TelegramLogin.consumePendingLogin()` once at startup (after `configure()`) to recover such a result:
+
+```dart
+final pending = await TelegramLogin.consumePendingLogin();
+if (pending != null) {
+  print(pending.idToken); // pick up where the interrupted login left off
+}
+```
+
+Thus function returns `null` if there's nothing to recover or if the recovered result is too old to be trusted. This function always returns `null` on iOS and web.
