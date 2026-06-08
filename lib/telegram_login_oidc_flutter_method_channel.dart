@@ -36,4 +36,14 @@ class MethodChannelTelegramLoginOidcFlutter extends TelegramLoginOidcFlutterPlat
       );
     }
   }
+
+  @override
+  Future<LoginData?> consumePendingLogin() async {
+    final result = await _channel.invokeMapMethod<String, dynamic>(
+      'consumePendingLogin',
+    );
+    final idToken = result?['idToken'] as String?;
+    if (idToken == null) return null;
+    return LoginData(idToken: idToken);
+  }
 }

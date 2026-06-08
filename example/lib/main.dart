@@ -10,9 +10,8 @@ import 'package:telegram_login_oidc_flutter/telegram_login_oidc_flutter.dart';
 // * iOS: Add the two kinds of associated domain for your iOS App URL in Xcode:
 // `webcredentials:appXXXXXXXXXX-login.tg.dev` (for when Telegram is not
 // installed) and `applinks:appXXXXXXXXXX-login.tg.dev` (for when it is).
-// * Android: Set manifestPlaceholders["telegramAndroidAppUrl"] to the domain
-//   of your Android App URL in android/app/build.gradle.kts,
-//   e.g. `appYYYYYYYYYY-login.tg.dev`.
+// * Android: Add an intent-filter matching your Android App URL directly to
+//   MainActivity in android/app/src/main/AndroidManifest.xml.
 // * Optionally add custom schemes as backup for universal links/Android App
 //   Links.
 // ---------------------------------------------------------------------------
@@ -54,7 +53,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    TelegramLogin.configure(
+    _configureAndCheckPending();
+  }
+
+  Future<void> _configureAndCheckPending() async {
+    await TelegramLogin.configure(
       clientId: _clientId,
       iosAppUrl: _iosAppUrl,
       androidAppUrl: _androidAppUrl,
@@ -62,6 +65,10 @@ class _LoginPageState extends State<LoginPage> {
       // TODO: Replace with your app's bundle ID if using the custom-scheme fallback.
       // iosFallbackScheme: 'com.example.yourapp',
     );
+    // Recovers a sign-in that completed natively while this app run was away
+    // (Android only — see "Recovering an interrupted sign-in" in the README).
+    final pending = await TelegramLogin.consumePendingLogin();
+    if (pending != null && mounted) setState(() => _idToken = pending.idToken);
   }
 
   Future<void> _login() async {

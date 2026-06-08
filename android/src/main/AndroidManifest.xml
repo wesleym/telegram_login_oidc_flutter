@@ -1,30 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.wesleymoy.telegram_login_oidc_flutter">
-    <application>
-        <activity
-            android:name=".TelegramLoginCallbackActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
-            <!-- Primary: App Link provisioned by BotFather. Set telegramAndroidAppUrl
-                 in manifestPlaceholders in build.gradle.kts. -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="https"
-                      android:host="${telegramAndroidAppUrl}"
-                      android:pathPrefix="/tglogin"/>
-            </intent-filter>
-            <!-- Fallback: custom URL scheme. Defaults to the app's package name;
-                 override by setting telegramAndroidScheme in manifestPlaceholders.
-                 Matches any URI with that scheme, so the redirect URI registered
-                 in BotFather can be any value starting with {scheme}:// -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="${telegramAndroidScheme}"/>
-            </intent-filter>
-        </activity>
-    </application>
 </manifest>

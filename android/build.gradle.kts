@@ -47,12 +47,7 @@ android {
 
     defaultConfig {
         minSdk = 23
-        // Seed the custom-scheme placeholder so consuming apps don't need to set
-        // it unless they want a scheme other than their package name.
-        manifestPlaceholders["telegramAndroidScheme"] = "\${applicationId}"
     }
-
-
 }
 
 kotlin {

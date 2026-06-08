@@ -8,6 +8,8 @@ export 'telegram_login_oidc_flutter_platform_interface.dart'
 class TelegramLogin {
   TelegramLogin._();
 
+  static String? _redirectUri;
+
   /// Configure credentials. Must be called before [login].
   ///
   /// [clientId] is the numeric client ID issued by BotFather (the same value
@@ -68,6 +70,7 @@ class TelegramLogin {
       effectiveRedirectUri != null,
       'Provide iosAppUrl on iOS or androidAppUrl on Android.',
     );
+    _redirectUri = effectiveRedirectUri;
 
     return TelegramLoginOidcFlutterPlatform.instance.configure(
       clientId: clientId,
@@ -83,5 +86,64 @@ class TelegramLogin {
   /// Throws [TelegramLoginException] on failure or cancellation.
   static Future<LoginData> login() {
     return TelegramLoginOidcFlutterPlatform.instance.login();
+  }
+
+  /// Recovers a login that completed natively but never made it back to the
+  /// Dart side that started it.
+  ///
+  /// On Android, the OS can destroy and recreate the app's Flutter engine
+  /// while the user is away completing the flow in Telegram or the browser
+  /// (e.g. due to memory pressure or aggressive OEM background-app limits).
+  /// When that happens, the native plugin still finishes the OIDC exchange
+  /// and stashes the resulting `id_token`, but the original [login] call's
+  /// [Future] is orphaned in the now-defunct isolate and can never resolve.
+  ///
+  /// Call this once at app startup (e.g. after [configure]) to pick up such
+  /// a stashed result. Returns `null` if there is nothing to recover, or if
+  /// the stashed result is too old to be trusted. On iOS and web, where this
+  /// scenario cannot occur, this always returns `null`.
+  static Future<LoginData?> consumePendingLogin() {
+    return TelegramLoginOidcFlutterPlatform.instance.consumePendingLogin();
+  }
+
+  /// Returns whether [location] is this app's Telegram OIDC redirect —
+  /// e.g. `https://app{ID}-login.tg.dev/tglogin?code=...` — rather than a
+  /// real navigation target.
+  ///
+  /// On Android (and potentially iOS, depending on how you wire up universal
+  /// links), the OS hands the redirect URL to your Flutter app as if it were
+  /// any other deep link, *in addition to* the native plugin consuming it —
+  /// see "Platform considerations: Android" in the README for the full
+  /// explanation. If your router doesn't expect this URL, it can crash (e.g.
+  /// `go_router`'s `GoException: no routes for location: ...`) or otherwise
+  /// misbehave — usually surfacing only once a user is already signed in
+  /// (typically via [consumePendingLogin]), since until then most apps'
+  /// auth-redirect logic absorbs the bad location anyway.
+  ///
+  /// Call this at the top of your router's redirect/guard logic and route
+  /// straight past any match (e.g. to your home screen) — the plugin has
+  /// already handled the real work natively. Must be called after [configure]
+  /// to have anything to compare against; returns `false` beforehand.
+  static bool isLoginRedirect(String location) {
+    final target = _redirectUri;
+    if (target == null) return false;
+    final targetUri = Uri.tryParse(target);
+    final locationUri = Uri.tryParse(location);
+    if (targetUri == null || locationUri == null) return false;
+
+    if (targetUri.host.isNotEmpty &&
+        locationUri.host.isNotEmpty &&
+        targetUri.host != locationUri.host) {
+      return false;
+    }
+    final targetPath = targetUri.path;
+    if (targetPath.isEmpty) {
+      // Custom-scheme redirect URIs (e.g. com.example.app://telegram-auth)
+      // don't split meaningfully into host/path — fall back to a prefix
+      // match against the full configured URI.
+      return location.startsWith(target);
+    }
+    return locationUri.path == targetPath ||
+        locationUri.path.startsWith('$targetPath/');
   }
 }

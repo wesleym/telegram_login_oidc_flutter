@@ -47,4 +47,8 @@ abstract class TelegramLoginOidcFlutterPlatform extends PlatformInterface {
 
   Future<LoginData> login() =>
       throw UnimplementedError('login() has not been implemented.');
+
+  // Default no-op: only Android can have an in-flight login orphaned by an
+  // engine teardown, so other platforms simply have nothing to recover.
+  Future<LoginData?> consumePendingLogin() => Future.value(null);
 }
