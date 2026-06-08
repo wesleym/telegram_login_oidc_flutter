@@ -1,9 +1,11 @@
-## Unreleased
+## 0.0.4
 
-* **Breaking (Android):** Replaced the `TelegramLoginCallbackActivity` trampoline with an `onNewIntent` listener on the host app's own activity. This fixes a bug where the redirect from Telegram could land in a separate task, causing Android to bring the wrong app (or the home screen) to the foreground instead of returning the user to the app.
-  * **Migration:** Remove `manifestPlaceholders["telegramAndroidAppUrl"]` (and `telegramAndroidScheme`, if set) from `android/app/build.gradle.kts`. Instead, add an intent filter matching your App URL directly to your launcher activity (usually `MainActivity`) in `android/app/src/main/AndroidManifest.xml`. See "App configuration: Android" in the README for the exact filter to add.
-* Added `TelegramLogin.consumePendingLogin()`. On Android, the OS can destroy and recreate the app's Flutter engine while the user is away completing the login (e.g. due to memory pressure or aggressive OEM background-app limits), orphaning the in-flight `login()` call. The native plugin now stashes the `id_token` from such an orphaned exchange; call `consumePendingLogin()` at startup to recover it. Returns `null` on iOS and web, and on Android when there is nothing to recover.
-* Added `TelegramLogin.isLoginRedirect(location)`. If you use an App Link / Universal Link redirect URI, the OS also forwards that URL to your app's router as a deep link (alongside the plugin handling it natively) — which can crash routers that don't expect it (e.g. `go_router`'s `GoException: no routes for location: ...`). Use this to recognize and route past it. See "Keeping your router from choking on the redirect URL" in the README.
+* Telegram login breakage on Android worked around.
+  * Implementation detail: `TelegramLoginCallbackActivity` removed. The task affinity of the main activity means that this activity is started in a new task, and it's difficult to pass the result back to the main activity.
+  * Breaking change: Remove `manifestPlaceholders["telegramAndroidAppUrl"]` from `android/app/build.gradle.kts`. Instead, add an intent filter matching your App URL directly to your launcher activity in `android/app/src/main/AndroidManifest.xml`. See "App configuration: Android" in the README for the exact filter to add.
+
+* Added `TelegramLogin.consumePendingLogin()` for Android login where the app process dies.
+* Added `TelegramLogin.isLoginRedirect(location)` to determine whether an incoming deep link is just a Telegram login.
 
 ## 0.0.3
 
